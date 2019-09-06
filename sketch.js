@@ -8,40 +8,52 @@ const CFG = {
   axis_pt_count: 4,
   center_offset: 0.66,
 
+  // Draw
+  dot_size: 4,
+  line_width: 1,
+
   // For drawing multiple icons
-  icon_margin: 50,
-  l_h: 6
+  icon_margin: 48,
+  disciplines: 25,
+  min_skills: 6,
+  max_skills: 12
 }
 
-let icons = [];
+let skills = [];
 
 function setup() {
-  canvas = createCanvas(window.innerWidth, window.innerHeight);
+  // CFG.icon_width = (window.innerHeight - 4*CFG.icon_margin - CFG.max_skills*(CFG.icon_margin-1)) / CFG.max_skills;
+  // CFG.icon_height = (window.innerHeight - 4*CFG.icon_margin - CFG.max_skills*(CFG.icon_margin-1)) / CFG.max_skills;
+  let canvas_width = CFG.disciplines * CFG.icon_width + (CFG.disciplines + 3) * CFG.icon_margin;
+  let canvas_height = CFG.max_skills * CFG.icon_height + (CFG.max_skills + 3) * CFG.icon_margin;
+  canvas = createCanvas( canvas_width, canvas_height );
   noLoop();
   smooth();
+  colorMode( HSB );
 
-  for (let i = 0; i < Math.pow(CFG.l_h, 2); i++) {
-    icons.push( new Icon() );
+
+  for (let i = 0; i < CFG.disciplines; i++) {
+    let skill_count = floor( random( CFG.min_skills, CFG.max_skills + 1 ) );
+    skills[i] = [];
+    for (let j = 0; j < skill_count; j++) {
+      skills[i].push( new Icon() );
+    }
   }
-
 }
 
 function draw() {
 
-  background( 40 );
+  background( 9 );
   
-  let total_width = CFG.l_h * CFG.icon_width + (CFG.l_h - 1) * CFG.icon_margin;
-  let total_height = CFG.l_h * CFG.icon_height + (CFG.l_h - 1) * CFG.icon_margin;
-  translate( width/2 - total_width/2, height/2 - total_height/2 );
-  
-  for (let i = 0; i < icons.length; i++) {
-    icons[i].drawPoints();
-    icons[i].drawConnections();
-    if ((i + 1) % CFG.l_h == 0 && i > 0) {
-      translate( -total_width + CFG.icon_width, CFG.icon_height + CFG.icon_margin );
-    } else {
-      translate( CFG.icon_width + CFG.icon_margin, 0 );
+  translate( CFG.icon_margin * 2, CFG.icon_margin * 2 );
+
+  for (let i = 0; i < skills.length; i++) {
+    for (let j = 0; j < skills[i].length; j++) {
+      skills[i][j].drawPoints( i );
+      skills[i][j].drawConnections( i );
+      translate( 0, CFG.icon_height + CFG.icon_margin );
     }
+    translate( CFG.icon_width + CFG.icon_margin, -CFG.icon_height * skills[i].length + -CFG.icon_margin * skills[i].length );
   }
 
 }

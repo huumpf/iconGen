@@ -20,7 +20,7 @@ class Icon {
       points_right.push( pt_right );
     }
     // Center axis
-    let y_inc = CFG.icon_height / CFG.axis_pt_count;
+    let y_inc = CFG.icon_height / (CFG.axis_pt_count - 1);
     for (let i = 0; i < CFG.axis_pt_count; i++) {
       let pt = createVector( CFG.icon_width / 2, i * y_inc );
       points_center.push( pt );
@@ -47,18 +47,21 @@ class Icon {
     return connections;
   }
 
-  drawConnections() {
-    strokeWeight( 1 );
-    stroke( 255 );
+  drawConnections( i ) {
+    noFill();
+    strokeWeight( CFG.line_width );
+    let col = 360 / CFG.disciplines * i;
+    stroke( col, 100, 100 );
     for (let i = 0; i < this.connections.length; i++) {
       line( this.connections[i][0].x, this.connections[i][0].y, this.connections[i][1].x, this.connections[i][1].y );
     }
   }
 
-  drawPoints() {
+  drawPoints( i ) {
     noFill();
-    strokeWeight( 3 );
-    stroke( 255 );
+    strokeWeight( CFG.dot_size );
+    let col = 360 / CFG.disciplines * i;
+    stroke( col, 100, 100 );
     for ( let pt of this.points.left ) {
       point( pt.x, pt.y );
     }
