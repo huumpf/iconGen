@@ -16,10 +16,10 @@ function setup() {
 }
 
 function draw() {
+  translate( width/2, height/2 );
   background( 40 );
-  strokeWeight( 3 );
+  strokeWeight( 1 );
   stroke( 255 );
-  icon.points.forEach(pt => {
-    point( pt.x, pt.y );
-  });
+  // icon.drawPoints();
+  icon.drawShape();
 }
