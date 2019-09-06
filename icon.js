@@ -57,7 +57,7 @@ class Icon {
 
   drawPoints() {
     noFill();
-    strokeWeight( 2 );
+    strokeWeight( 3 );
     stroke( 255 );
     for ( let pt of this.points.left ) {
       point( pt.x, pt.y );

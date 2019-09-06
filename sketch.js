@@ -1,8 +1,8 @@
 var canvas;
 
 const CFG = {
-  icon_width : 20,
-  icon_height: 25,
+  icon_width : 48,
+  icon_height: 48,
   min_pt_count: 2,
   max_pt_count: 4,
   axis_pt_count: 4,
@@ -18,6 +18,7 @@ let icons = [];
 function setup() {
   canvas = createCanvas(window.innerWidth, window.innerHeight);
   noLoop();
+  smooth();
 
   for (let i = 0; i < Math.pow(CFG.l_h, 2); i++) {
     icons.push( new Icon() );
