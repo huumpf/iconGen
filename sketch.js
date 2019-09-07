@@ -43,7 +43,7 @@ function setup() {
 
 function draw() {
 
-  background( 9 );
+  background( 7 );
   
   translate( CFG.icon_margin * 2, CFG.icon_margin * 2 );
 
